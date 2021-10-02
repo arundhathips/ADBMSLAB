@@ -1,0 +1,126 @@
+
+create table student_arundhathi(rollno integer primary key,name varchar(20),dob date, dept varchar(5),marks float);
+
+A)  SQL> insert into student_arundhathi values(1,'Amitha','18-jun-1998','CS',480);
+    1 row created.
+    SQL>  insert into student_arundhathi values(2,'Arya','12-jul-1989','IT',500);
+    1 row created.
+    SQL> insert into student_arundhathi values(3,'George',’19-jan-1989','CS',489);
+    1 row created.
+    SQL>  insert into student_arundhathi values(4,'Gouuripriya','28-nov-1989','CS',495);
+    1 row created.
+    SQL> insert into student_arundhathi values(5,'Henin','12-dec-1988','IT',525);
+    1 row created.
+    SQL>  insert into student_arundhathi values(6,'Ishana','25-dec-1988','CS',500);
+    1 row created.
+    SQL> insert into student_arundhathi values(7,'Pranav','27-nov-1989','CS',510);
+    1 row created.
+	
+    SQL> select * from student_arundhathi;
+
+    ROLLNO NAME                 DOB         DEPT       MARKS
+---------- -------------------- --------- ----- ------------------------------
+         1 Amitha              18-JUN-98     CS         480
+         2 Arya                12-JUL-89     IT         500
+         3 George              19-JAN-89     CS         489
+         4 Gourikripa          28-NOV-89     CS         495
+         5 Henin               12-DEC-88     IT         525
+         6 Ishana              25-DEC- 88    CS         500
+         7 Pranav              27-NOV-89     CS         510
+
+7 rows selected.
+	
+B)   SQL> alter table student_arundhathi add(address varchar(10));
+Table altered.
+SQL> alter table student_arundhathi modify(name varchar(20));
+Table altered.
+	
+C)   SQL> select * student_arundhathi;
+
+    ROLLNO NAME                 DOB        DEPT        MARKS ADDRESS
+---------- -------------------- --------- ----- ---------- -----------------------------
+         1 Amitha              18-JUN-98    CS           480
+         2 Arya                12-JUL-89    IT           500
+         3 George              19-JAN-89    CS           489
+         4 Gourikripa          28-NOV-89    CS           495
+         5 Henin               12-DEC-88    IT           525
+         6 Ishana              25-DEC- 88   CS           500
+         7 Pranav              27-NOV-89    CS           510
+
+   7 rows selected.
+
+ SQL> desc student_arundhathi;
+ 
+ Name                               Null?                       Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                        NOT NULL                      NUMBER(38)
+ NAME                                                        VARCHAR2(20)
+ DOB                                                             DATE
+ DEPT                                                        VARCHAR2(5)
+ MARKS                                                       FLOAT(126)
+ ADDRESS                                                     VARCHAR2(10)
+
+D)    SQL> alter table student_arundhathi modify(address varchar(30));
+Table altered.
+SQL> alter table student_arundhathi modify(address varchar(30));
+Table altered.
+SQL> update student_arundhathi set address='Idukki' where rollno=1;
+1 row updated.
+SQL> update student_arundhathi set address='Kollam' where rollno=2;
+1 row updated.
+SQL> update student_arundhathi set address='Thrissur' where rollno=3;
+1 row updated.
+SQL> update student_arundhathi set address='Kottayam' where rollno=7;
+1 row updated.
+
+
+	
+SQL> select * from student_arundhathi;
+
+    ROLLNO NAME           DOB                DEPT         MARKS      ADDRESS
+---------- -------------------- --------- ----- ---------- ------------------------------
+         1 Amitha         18-JUN-98          CS           480        Idukki
+         2 Arya           12-JUL-89          IT           500	     Kollan
+         3 George         19-JAN-89          CS           489        Thrissur
+         4 Gourikripa     28-NOV-89          CS           495
+         5 Henin          12-DEC-88          IT           525
+         6 Ishana         25-DEC- 88         CS           500
+         7 Pranav         27-NOV-89          CS           510        Kottayam
+         
+E) SQL> select name,dob from student_arundhathi where months_between(sysdate,dob)/12<22;
+
+       no rows selected.
+
+
+F)	SQL> select * from student_arundhathi order by marks;
+
+    ROLLNO NAME                 DOB             DEPT       MARKS ADDRESS
+---------- -------------------- --------- ----- ---------- ------------------------------
+         1 Amitha              18-JUN-98        CS          480   Idukki
+         3 George              19-JAN-89        CS          489   Thrissur
+         4 Gourikripa          28-NOV-89        CS          495
+         6 Ishana              25-DEC- 88       CS          500
+         2 Arya                12-JUL-89        IT          500	  Kollam
+         7 Pranav              27-NOV-89        CS          510   Kottayam
+         5 Henin               12-DEC-88        IT          525
+         
+         
+
+7 rows selected.
+
+G)   SQL> select name from student_arundhathi where dept= 'CS' and marks>500;
+     NAME
+    --------------------
+     Pranav
+	
+H)  SQL> select name from student_arundhathi where marks>(select avg(marks)from student_fathima);
+
+      NAME
+    --------------------
+      Arya
+      Henin
+      Ishana    
+      Pranav
+	
+I)	drop table student_arundhathi;
+  Table dropped.
