@@ -1,0 +1,482 @@
+
+FUNCTIONS:
+Factorial
+ SQL> declare
+  2           f number:=1;
+  3           n number;
+  4           i number;
+  5   begin
+  6           n:=&n;
+  7
+  8    for i in 1..n
+  9    loop
+ 10    f:=f*i;
+ 11    end loop;
+ 12    dbms_output.put_line('Factorial = '||f);
+ 13    end;
+ 14    /
+Enter value for n: 10
+old   6:          n:=&n;
+new   6:          n:=10;
+Factorial = 3628800
+
+PL/SQL procedure successfully completed.
+
+Sum
+SQL> set serveroutput on
+SQL> declare
+  2       a number;
+  3       b number;
+  4       c number;
+  5   begin
+  6       a:=&a;
+  7       b:=&b;
+  8       c:=a+b;
+  9  dbms_output.put_line('sum of'||a||'and'||b||'is'||c);
+ 10   end;
+ 11   /
+Enter value for a: 10
+old   6:      a:=&a;
+new   6:      a:=10;
+Enter value for b: 20
+old   7:      b:=&b;
+new   7:      b:=20;
+sum of10and20is30
+
+PL/SQL procedure successfully completed.
+
+Prime or Not
+SQL> declare
+  2  n number;
+  3  i number;
+  4  temp number;
+  5
+  6   begin
+  7  n := &n;
+  8  i := 2;
+  9  temp := 1;
+ 10   for i in 2..n/2
+ 11      loop
+ 12          if mod(n, i) = 0
+ 13          then
+ 14          temp := 0;
+ 15              exit;
+ 16          end if;
+ 17          end loop;
+ 18
+ 19      if temp = 1
+ 20      then
+ 21          dbms_output.put_line('true');
+ 22      else
+ 23          dbms_output.put_line('false');
+ 24      end if;
+ 25  end;
+ 26  /
+Enter value for n: 3
+old   7: n := &n;
+new   7: n := 3;
+true
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  n number;
+  3  i number;
+  4  temp number;
+  5
+  6   begin
+  7  n := &n;
+  8  i := 2;
+  9  temp := 1;
+ 10   for i in 2..n/2
+ 11      loop
+ 12          if mod(n, i) = 0
+ 13          then
+ 14          temp := 0;
+ 15              exit;
+ 16          end if;
+ 17          end loop;
+ 18
+ 19      if temp = 1
+ 20      then
+ 21          dbms_output.put_line('true');
+ 22      else
+ 23          dbms_output.put_line('false');
+ 24      end if;
+ 25  end;
+ 26  /
+Enter value for n: 25
+old   7: n := &n;
+new   7: n := 25;
+false
+
+PL/SQL procedure successfully completed.
+
+Add 2  Number
+SQL> create or replace function add_fun(a number,b number) return number as
+  2  c number;
+  3  begin
+  4  c:=a+b;
+  5  return c;
+  6  end;
+  7  /
+
+Function created.
+
+SQL> declare
+  2  result number;
+  3  begin
+  4  result:=add_fun(30,40);
+  5  dbms_output.put_line('Result is: '||result);
+  6  end;
+  7  /
+Result is: 70
+
+PL/SQL procedure successfully completed.
+
+Armstrong
+SQL> set serveroutput on;
+SQL> create or replace function armstrong(n number) return number is
+  2  r number(10);
+  3  a number(10);
+  4  b number(10);
+  5  c number(10);
+  6  begin
+  7  b:=0;
+  8  c:=n;
+  9  while(c>0)
+ 10  loop
+ 11  r:=c mod 10;
+ 12  b:=b+(r*r*r);
+ 13  c:=floor(c/10);
+ 14  end loop;
+ 15  return b;
+ 16  end armstrong;
+ 17  /
+
+Function created.
+
+SQL> declare
+  2  n number(10);
+  3  m number(10);
+  4  begin
+  5  n:=&n;
+  6  m:=armstrong(n);
+  7  if(m=n) then
+  8  dbms_output.put_line('Given no is armstrong number');
+  9  else
+ 10  dbms_output.put_line('Given no is not an armstrong number');
+ 11  end if;
+ 12  end;
+ 13  /
+Enter value for n: 153
+old   5: n:=&n;
+new   5: n:=153;
+Given no is armstrong number
+
+PL/SQL procedure successfully completed.
+
+ItemPrice
+SQL> create table item(item_id integer primary key,itemname varchar(20),price float);
+
+Table created.
+
+SQL> insert into item values(&item_id,'&itemname',&price);
+Enter value for item_id: 2334
+Enter value for itemname: Geera
+Enter value for price: 206.25
+old   1: insert into item values(&item_id,'&itemname',&price)
+new   1: insert into item values(2334,'Geera',206.25)
+
+1 row created.
+
+SQL> insert into item values(&item_id,'&itemname',&price);
+Enter value for item_id: 2532
+Enter value for itemname: Corn soup
+Enter value for price: 34.65
+old   1: insert into item values(&item_id,'&itemname',&price)
+new   1: insert into item values(2532,'Corn soup',34.65)
+
+1 row created.
+
+SQL> insert into item values(&item_id,'&itemname',&price);
+Enter value for item_id: 2124
+Enter value for itemname: Lays
+Enter value for price: 20
+old   1: insert into item values(&item_id,'&itemname',&price)
+new   1: insert into item values(2124,'Lays',20)
+
+1 row created.
+
+SQL> insert into item values(&item_id,'&itemname',&price);
+Enter value for item_id: 4531
+Enter value for itemname: Set
+Enter value for price: 99.99
+old   1: insert into item values(&item_id,'&itemname',&price)
+new   1: insert into item values(4531,'Set',99.99)
+
+1 row created.
+
+SQL> insert into item values(&item_id,'&itemname',&price);
+Enter value for item_id: 2319
+Enter value for itemname: Duracell
+Enter value for price: 45.5
+old   1: insert into item values(&item_id,'&itemname',&price)
+new   1: insert into item values(2319,'Duracell',45.5)
+
+1 row created.
+
+SQL> select * from item;
+
+   ITEM_ID ITEMNAME                  PRICE
+---------- -------------------- ----------
+      2334 Geera                    206.25
+      2532 Corn soup                 34.65
+      2124 Lays                         20
+      4531 Set                       99.99
+      2319 Duracell                   45.5
+	  
+	  
+SQL> create or replace function itemprice(id number) return number is
+  2  p item.price % type;
+  3  begin
+  4  select price into p from item where item_id=id;
+  5  return(p);
+  6  end;
+  7  /
+
+Function created.
+
+
+SQL> declare
+  2  pr number;
+  3  id number;
+  4  begin
+  5  id:=&itemid;
+  6  pr:=itemprice(id);
+  7  dbms_output.put_line('item price is RS:'||pr);
+  8  end;
+  9  /
+Enter value for itemid: 2124
+old   5: id:=&itemid;
+new   5: id:=2124;
+item price is RS:20
+
+PL/SQL procedure successfully completed.
+
+POW
+SQL> set serveroutput on;
+
+SQL> create or replace function pow (n1 number,n2 number) return number as
+  2  res number;
+  3  begin
+  4  select power (n1,n2) into res from dual;
+  5  return res;
+  6  end;
+  7  /
+
+Function created.
+
+SQL> select power (2,4) from dual;
+
+POWER(2,4)
+----------
+        16
+		
+		
+SQL> declare
+  2  a number;
+  3  b number;
+  4  begin
+  5  a:=&a;
+  6  b:=&b;
+  7  dbms_output.put_line('power(n1,n2)='||pow(a,b));
+  8  end;
+  9  /
+Enter value for a: 2
+old   5: a:=&a;
+new   5: a:=2;
+Enter value for b: 4
+old   6: b:=&b;
+new   6: b:=4;
+power(n1,n2)=16
+
+PL/SQL procedure successfully completed.
+****************************************************
+Procedure::
+Banking operation
+
+SQL> select * from account;
+
+ACCOUNT_NO ACCOUNTHOLDER_NAME      BALANCE
+---------- -------------------- ----------
+         1 Amalu                     1000
+         2 Sreelakshmi               5000
+         3 Aru                       3500
+
+SQL> create or replace procedure withdraw(accno1 number,amt1 in number) is
+  2  begin
+  3  update account set balance = balance-amt1 where accno1 =accno1;
+  4  end;
+  5  /
+
+Procedure created.
+
+SQL> create or replace procedure deposit(accno1 number,amt1 in number) is
+  2  begin
+  3  update account set balance = balance-amt1 where accno1 =accno1;
+  4  end;
+  5  /
+
+Procedure created.
+
+SQL> declare
+  2  choice number;
+  3  accno1 number(5);
+  4  amount number(5);
+  5  begin
+  6  accno1:=&accno1;
+  7  choice:=&choice;
+  8  amount:=&amount;
+  9  if choice=1 then
+ 10  deposit(accno1,amount);
+ 11  else
+ 12  withdraw(accno1,amount);
+ 13  end if;
+ 14  end;
+ 15  /
+Enter value for accno1: 1
+old   6: accno1:=&accno1;
+new   6: accno1:=1;
+Enter value for choice: 2
+old   7: choice:=&choice;
+new   7: choice:=2;
+Enter value for amount: 500
+old   8: amount:=&amount;
+new   8: amount:=500;
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from account;
+
+ACCOUNT_NO ACCOUNTHOLDER_NAME      BALANCE
+---------- -------------------- ----------
+         1 Amalu                      500
+         2 Sreelakshmi                4500
+         3 Aru                        3000
+
+SQL> declare
+  2  choice number;
+  3  accno1 number(5);
+  4  amount number(5);
+  5  begin
+  6  accno1:=&accno1;
+  7  choice:=&choice;
+  8  amount:=&amount;
+  9  if choice=1 then
+ 10  deposit(accno1,amount);
+ 11  else
+ 12  withdraw(accno1,amount);
+ 13  end if;
+ 14  end;
+ 15  /
+Enter value for accno1: 1
+old   6: accno1:=&accno1;
+new   6: accno1:=1;
+Enter value for choice: 1
+old   7: choice:=&choice;
+new   7: choice:=1;
+Enter value for amount: 1000
+old   8: amount:=&amount;
+new   8: amount:=1000;
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from account;
+
+ACCOUNT_NO ACCOUNTHOLDER_NAME      BALANCE
+---------- -------------------- ----------
+         1 Amalu                     -500
+         2 Sreelakshmi                3500
+         3 Aru                        2000
+
+Price updated
+SQL> create table product (product_id integer,product_name varchar(20),price number);
+
+Table created.
+
+SQL> insert into product values(&product_id,'&product_name',&price);
+Enter value for product_id: 101
+Enter value for product_name: Soap
+Enter value for price: 25
+old   1: insert into product values(&product_id,'&product_name',&price)
+new   1: insert into product values(101,'Soap',25)
+
+1 row created.
+
+SQL> insert into product values(&product_id,'&product_name',&price);
+Enter value for product_id: 102
+Enter value for product_name: Sweets
+Enter value for price: 200
+old   1: insert into product values(&product_id,'&product_name',&price)
+new   1: insert into product values(102,'Sweets',200)
+
+1 row created.
+
+SQL> insert into product values(&product_id,'&product_name',&price);
+Enter value for product_id: 103
+Enter value for product_name: Paste
+Enter value for price: 35
+old   1: insert into product values(&product_id,'&product_name',&price)
+new   1: insert into product values(103,'Paste',35)
+
+1 row created.
+
+SQL> insert into product values(&product_id,'&product_name',&price);
+Enter value for product_id: 104
+Enter value for product_name: Pen
+Enter value for price: 5
+old   1: insert into product values(&product_id,'&product_name',&price)
+new   1: insert into product values(104,'Pen',5)
+
+1 row created.
+
+SQL> select * from product;
+
+PRODUCT_ID PRODUCT_NAME              PRICE
+---------- -------------------- ----------
+       101 Soap                         25
+       102 Sweets                      200
+       103 Paste                        35
+       104 Pen                           5
+
+SQL> create or replace procedure product1(id number,total number) is
+  2  p number;
+  3  null_price exception;
+  4  begin
+  5  select price into p from product where product_id=id;
+  6  if p is null then
+  7  raise null_price;
+  8  else
+  9  update product set price=price+total where product_id=id;
+ 10  end if;
+ 11  exception
+ 12  when null_price then
+ 13  dbms_output.put_line('Price is null');
+ 14  end;
+ 15  /
+
+Procedure created.
+
+SQL> exec product1(102,100)
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from product;
+
+PRODUCT_ID                  PRODUCT_NAME              PRICE
+----------                  -------------------- ----------
+       101                   Soap                         25
+       102                   Sweets                      300
+       103                   Paste                        35
+       104                   Pen                           5
